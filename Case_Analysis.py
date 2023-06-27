@@ -118,18 +118,29 @@ if show_part=="Distribution Of Cases":
 So according to the density of the point, we could estimate the infectivity of the disease''')
     with st.expander("Show source code"):
         code = '''
-    df = pd.DataFrame(
-    np.random.rand(10000, 2)*61+[73.5, 0],
-    columns=['lat', 'lon'])
-    agree=st.checkbox("Show the raw data")
-    if agree:
+import streamlit as st
+import pandas as pd
+import numpy as np
+from pyecharts.charts import Bar
+import streamlit_echarts
+from pyecharts import options as opts
+from pyecharts.globals import ThemeType
+import random as rd
+from pyecharts.charts import Pie
+from pyecharts.commons.utils import JsCode
+from pillow import Image
+df = pd.DataFrame(
+np.random.rand(10000, 2)*61+[73.5, 0],
+columns=['lat', 'lon'])
+agree=st.checkbox("Show the raw data")
+if agree:
         st.write(df)
-    st.divider()
-    st.caption("This map bellow precisely illustrates the distribution of the cases")
-    st.map(df)
-    st.text(''Every point refer to an patient's address.
-    So according to the density of the point, we could estimate the infectivity of the disease'')
-    with st.expander("Show source code"):
+st.divider()
+st.caption("This map bellow precisely illustrates the distribution of the cases")
+st.map(df)
+st.text(''Every point refer to an patient's address.
+So according to the density of the point, we could estimate the infectivity of the disease'')
+with st.expander("Show source code"):
         st.code(code,language='python')'''
         st.code(code,language='python')
 elif show_part=="Regional Relevance":   
