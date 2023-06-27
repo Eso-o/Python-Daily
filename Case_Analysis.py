@@ -153,27 +153,55 @@ elif show_part=="Regional Relevance":
             Pie_data=pd.DataFrame.from_dict(pie_data,orient='index')
             st.write(Pie_data)
     with st.expander("Show source code"):
-        code = '''
+        code1 = '''
 def data_form():
-    rd.seed(520)
-    sum1=0
-    Numbers1=[]
-    porpo1=[]
-    for i in range(34):
-        a=rd.randint(0,10000)
-        Numbers1.append(a)
-    for j in Numbers1:
-        sum1+=j
-    for k in Numbers1:
-        porpo1o1=k/sum1
-        porpo1.append(porpo1o1)   
-    Province = ['北京','天津','上海','重庆','河北','山西','辽宁','吉林','黑龙江','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','海南',\
-                '四川','贵州','云南','陕西','甘肃','青海','台湾','内蒙古','广西','西藏','宁夏','新疆','香港','澳门']
-    return Province,Numbers1,porpo1
+        rd.seed(520)
+        sum1=0
+        sum2=0
+        sum3=0
+        Numbers1=[]
+        Numbers2=[]
+        porpo1=[]
+        porpo2=[]
+        porpo3=[]
+        for blo in range(17):
+            a=rd.randint(0,5000)
+            Numbers1.append(a)
+        for blt in range(17):
+            b=rd.randint(0,10000)
+            Numbers1.append(b)
+        for blr in range(17):
+            c=rd.randint(0,2000)
+            Numbers2.append(c)
+        for blf in range(17):
+            d=rd.randint(0,500)
+            Numbers2.append(d)
+        Numbers3=[x+y for x,y in zip(Numbers1,Numbers2)]
+        #生成各段的比例
+        for j in Numbers1:
+            sum1+=j
+        for k in Numbers1:
+            porp1=k/sum1
+            porpo1.append(porp1)
+        for j in Numbers2:
+            sum2+=j
+        for k in Numbers2:
+            porp2=k/sum2
+            porpo2.append(porp2) 
+        for j in Numbers3:
+            sum3+=j
+        for k in Numbers3:
+            porp3=k/sum3
+            porpo3.append(porp3)  
+        Province = ['内蒙古','广西','西藏','宁夏','新疆','北京','陕西','甘肃','青海','天津','上海','重庆','河北','山西','辽宁','吉林','黑龙江','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','海南',\
+                    '四川','贵州','云南','台湾','香港','澳门']
+        return Province,Numbers1,Numbers2,Numbers3,porpo1,porpo2,porpo3
 def bar_run():
     bar = Bar()
     bar.add_xaxis(Province)
-    bar.add_yaxis('',Numbers1)
+    bar.add_yaxis("Mild Patients",Numbers1,itemstyle_opts=opts.ItemStyleOpts(color="#5D7DB3"))
+    bar.add_yaxis("Critical Patients",Numbers2,itemstyle_opts=opts.ItemStyleOpts(color="#464879"))
+    bar.add_yaxis("All Patients",Numbers3,itemstyle_opts=opts.ItemStyleOpts(color="#B6CAD7"))
     bar.set_series_opts(
         #是否显示标签
         label_opts = opts.LabelOpts(is_show = False)
@@ -187,8 +215,24 @@ def bar_run():
 def pie_run():
     # 数据设置
     pie = Pie(init_opts=opts.InitOpts(width='1700px', height='720px')) 
-    pie.add("",[list(z) for z in zip(Province,porpo1)],radius = ["40%","75%"])    # 设置圆环的粗细和大小
-    pie.set_series_opts
+    pie.add(
+        "",
+        [list(z) for z in zip(Province,porpo1)],
+        center=["20%", "30%"],  # 位置
+        radius=[0, 80],   # 每个饼图内外圈的大小
+    )
+    pie.add(
+        "",
+        [list(z) for z in zip(Province,porpo2)],
+        center=["60%", "30%"],
+        radius=[0, 80],
+    )
+    pie.add(
+        "",
+        [list(z) for z in zip(Province,porpo3)],
+        center=["40%", "70%"],
+        radius=[0, 80],
+    )
     pie.set_series_opts(
         #是否显示标签
         label_opts=opts.LabelOpts(is_show=False,
@@ -202,24 +246,27 @@ def pie_run():
         legend_opts = opts.LegendOpts(pos_top = "5%",pos_left = "80%",orient="vertical"))
     pie.set_series_opts(label_opts=opts.LabelOpts(formatter="{b}:{c}"))
     return streamlit_echarts.st_pyecharts(pie)
-Province,Numbers1,porpo1=data_form() 
-bar_run()
-st.divider()  
-pie_run()
+Province,Numbers1,Numbers2,Numbers3,porpo1,porpo2,porpo3=data_form() 
+show_chart=st.sidebar.selectbox("Select a chart",("Bar", "Pie"))
+if  show_chart=="Bar":
+        bar_run()
+else :
+        pie_run()
 agree=st.checkbox("Show the raw data")
 if agree:
-    coli1,coli2=st.columns(2)
-    with coli1:
-        st.subheader("The Raw Data Of The Bar")
-        bar_data=dict(zip(Province,Numbers1))
-        Bar_data=pd.DataFrame.from_dict(bar_data,orient='index')       
-        st.write(Bar_data)
-    with coli2:
-        st.subheader("The Raw Data Of The Pie")
-        pie_data=dict(zip(Province,porpo1))
-        Pie_data=pd.DataFrame.from_dict(pie_data,orient='index')
-        st.write(Pie_data)'''
-        st.code(code,language='python')
+        coli1,coli2=st.columns(2)
+        with coli1:
+            st.subheader("The Raw Data Of The Bar")
+            bar_data=dict(zip(Province,Numbers1))
+            Bar_data=pd.DataFrame.from_dict(bar_data,orient='index')       
+            st.write(Bar_data)
+        with coli2:
+            st.subheader("The Raw Data Of The Pie")
+            pie_data=dict(zip(Province,porpo1))
+            Pie_data=pd.DataFrame.from_dict(pie_data,orient='index')
+            st.write(Pie_data)'''
+        st.code(code1,language='python')
+
 else:
     weight = st.slider('How much do you weigh? :neutral_face:',0.0,200.0,60.0)
     high = st.slider('How tall are you? :neutral_face:',0.0,2.50,1.70)
@@ -246,7 +293,7 @@ else:
 
         if pressure < 90:
             result2 = "Your systolic blood pressure data shows that you are currently suffering from **:orange[high blood pressure]** :disappointed:"
-        elif BMI > 140:
+        elif pressure > 140:
             result2 = "Your systolic blood pressure data shows that you are currently suffering from **:orange[low blood pressure]** :disappointed:"
         else:
             result2 = "Your systolic blood pressure data shows that you are now in **:blue[the normal range]** :blush:"
@@ -304,7 +351,7 @@ else:
 
     if pressure < 90:
         result2 = "Your systolic blood pressure data shows that you are currently suffering from **:orange[high blood pressure]** :disappointed:"
-    elif BMI > 140:
+    elif pressure > 140:
         result2 = "Your systolic blood pressure data shows that you are currently suffering from **:orange[low blood pressure]** :disappointed:"
     else:
         result2 = "Your systolic blood pressure data shows that you are now in **:blue[the normal range]** :blush:"
