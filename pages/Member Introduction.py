@@ -22,7 +22,6 @@ with tab1:
     image1 = Image.open('t2.jpg')
     image1.resize(20,20)
     st.image(image1, caption="Chief Programmer, responsible for distribution and regional analysis webs")
-    '''
 with tab2:
     st.title('**Member Introduction** :blush:')
     st.subheader('**:orange[Yu Chen]**')
@@ -31,6 +30,7 @@ with tab2:
     image2 = Image.open('t3.jpg')
     image2.resize(20,20)
     st.image(image2, caption="Programmer, mainly responsible for the personal analysis module")
+    '''
 with tab2:
     st.title('**Member Introduction** :blush:')
     st.subheader('**:orange[Yu Chen]**')
@@ -52,4 +52,12 @@ with tab1:
     image1 = Image.open('t2.jpg')
     image1.resize(20,20)
     st.image(image1, caption="Chief Programmer, responsible for distribution and regional analysis webs")
+with tab2:
+    st.title('**Member Introduction** :blush:')
+    st.subheader('**:orange[Yu Chen]**')
+    st.write("*Python is the key in life*")
+    st.divider()
+    image2 = Image.open('t3.jpg')
+    image2.resize(20,20)
+    st.image(image2, caption="Programmer, mainly responsible for the personal analysis module")
     '''
