@@ -128,7 +128,7 @@ from pyecharts.globals import ThemeType
 import random as rd
 from pyecharts.charts import Pie
 from pyecharts.commons.utils import JsCode
-from pillow import Image
+from PIL import Image
 df = pd.DataFrame(
 np.random.rand(10000, 2)*61+[73.5, 0],
 columns=['lat', 'lon'])
