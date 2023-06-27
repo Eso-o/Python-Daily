@@ -101,7 +101,6 @@ def pie_run():
         legend_opts = opts.LegendOpts(pos_top = "5%",pos_left = "80%",orient="vertical"))
     pie.set_series_opts(label_opts=opts.LabelOpts(formatter="{b}:{c}"))
     return streamlit_echarts.st_pyecharts(pie)
-
 np.random.seed(520)
 show_part=st.sidebar.selectbox("Select a part",("Distribution Of Cases","Regional Relevance","Individual Analysis"))
 st.title("**Case Analysis**")
@@ -135,10 +134,10 @@ So according to the density of the point, we could estimate the infectivity of t
         st.code(code,language='python')
 elif show_part=="Regional Relevance":   
     Province,Numbers1,Numbers2,Numbers3,porpo1,porpo2,porpo3=data_form() 
-    tab1, tab2= st.tabs(["Bar", "Pie"])
-    with tab1:
+    show_chart=st.sidebar.selectbox("Select a chart",("Bar", "Pie"))
+    if  show_chart=="Bar":
         bar_run()
-    with tab2:
+    else :
         pie_run()
     agree=st.checkbox("Show the raw data")
     if agree:
@@ -209,17 +208,17 @@ st.divider()
 pie_run()
 agree=st.checkbox("Show the raw data")
 if agree:
-coli1,coli2=st.columns(2)
-with coli1:
-    st.subheader("The Raw Data Of The Bar")
-    bar_data=dict(zip(Province,Numbers1))
-    Bar_data=pd.DataFrame.from_dict(bar_data,orient='index')       
-    st.write(Bar_data)
-with coli2:
-    st.subheader("The Raw Data Of The Pie")
-    pie_data=dict(zip(Province,porpo1))
-    Pie_data=pd.DataFrame.from_dict(pie_data,orient='index')
-    st.write(Pie_data)'''
+    coli1,coli2=st.columns(2)
+    with coli1:
+        st.subheader("The Raw Data Of The Bar")
+        bar_data=dict(zip(Province,Numbers1))
+        Bar_data=pd.DataFrame.from_dict(bar_data,orient='index')       
+        st.write(Bar_data)
+    with coli2:
+        st.subheader("The Raw Data Of The Pie")
+        pie_data=dict(zip(Province,porpo1))
+        Pie_data=pd.DataFrame.from_dict(pie_data,orient='index')
+        st.write(Pie_data)'''
         st.code(code,language='python')
 else:
     weight = st.slider('How much do you weigh? :neutral_face:',0.0,200.0,60.0)
