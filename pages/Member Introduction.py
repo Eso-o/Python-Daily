@@ -3,6 +3,7 @@ from PIL import Image
 tab1, tab2 = st.tabs(["Qitong Xu", "Yu Chen"])
 with tab1:
     st.title('**Member Introduction** :blush:')
+    st.header('*Luoma-kneeling group*')
     st.subheader('**:blue[Qitong Xu]**')
     st.write("*Patience is the key in life*")
     st.divider()
@@ -10,6 +11,7 @@ with tab1:
     st.image(image1,width=480, caption="Chief Programmer, responsible for distribution and regional analysis webs")
 with tab2:
     st.title('**Member Introduction** :blush:')
+    st.header('*Luoma-kneeling group*')
     st.subheader('**:orange[Yu Chen]**')
     st.write("*Python is the key in life*")
     st.divider()
