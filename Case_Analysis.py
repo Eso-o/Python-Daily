@@ -155,12 +155,12 @@ elif show_part=="Regional Relevance":
         coli1,coli2=st.columns(2)
         with coli1:
             st.subheader("The Raw Data Of The Bar")
-            bar_data=dict(zip(Province,Numbers1,Numbers2,Numbers3))
+            bar_data=dict(zip(Province,Numbers1))
             Bar_data=pd.DataFrame.from_dict(bar_data,orient='index')       
             st.write(Bar_data)
         with coli2:
             st.subheader("The Raw Data Of The Pie")
-            pie_data=dict(zip(Province,Numbers1,Numbers2,Numbers3))
+            pie_data=dict(zip(Province,Numbers1))
             Pie_data=pd.DataFrame.from_dict(pie_data,orient='index')
             st.write(Pie_data)
     with st.expander("Show source code"):
